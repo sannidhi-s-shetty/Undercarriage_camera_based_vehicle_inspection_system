@@ -4,9 +4,21 @@
     <link rel="stylesheet" href='../static/style.css'/>
   </head>
   <body>
-    <h1>Live Streaming</h1>
+    <h1>RPi Live Streaming</h1>
 <!--    this is where video will be fed to the web page -->
     <h3><img src="{{ url_for('video_feed') }}" width="90%"></h3>
+    
+    <button class="button">Up</button>
+    <button class="button">Down</button>
+    <button class="button">Left</button>
+    <button class="button">Right</button>
+    <br>
+    <br>
+    <button class="button">Record</button>
+    <button class="button">Previous Recordings</button>
+  
+    <button class="button">Refresh Stream</button>
+    <button class="button">Refresh Controls</button>
     <hr>
   </body>
 </html>
