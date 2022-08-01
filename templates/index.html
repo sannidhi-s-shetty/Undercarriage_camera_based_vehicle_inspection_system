@@ -2,6 +2,9 @@
   <head>
     <title>Live Streaming</title>
     <link rel="stylesheet" href='../static/style.css'/>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src=" https://unpkg.com/babel-standalone@6/babel.min.js"></script>
   </head>
   <body>
     <h1>RPi Live Streaming</h1>
@@ -14,11 +17,19 @@
     <button class="button">Right</button>
     <br>
     <br>
-    <button class="button">Record</button>
+    <button type="button" id="myBtn" class="button">Record</button>
     <button class="button">Previous Recordings</button>
   
     <button class="button">Refresh Stream</button>
     <button class="button">Refresh Controls</button>
     <hr>
+<!--    <script>-->
+<!--        function record(){-->
+
+<!--        }-->
+<!--	    var btn = document.getElementById("myBtn");-->
+<!--	    btn.addEventListener("click", record);-->
+<!--    </script>-->
+  <script src="./index.js" type="text/babel"></script>
   </body>
 </html>
