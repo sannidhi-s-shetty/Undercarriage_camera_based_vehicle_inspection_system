@@ -5,6 +5,14 @@ body{
 	text-align: center;
 }
 
+
+
+
+.hbg {
+	background:url(images/image.png) no-repeat top;
+	height:200px; 
+}
+
 .button {
   background-color: #4CAF50; /* Green */
   border: none;
@@ -15,3 +23,4 @@ body{
   display: inline-block;
   font-size: 16px;
 }
+
