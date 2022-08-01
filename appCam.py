@@ -2,8 +2,9 @@
 # install Flask on Rpi : sudo apt-get install python3-flask
 
 from flask import Flask, render_template, Response
-
 from camera_pi import Camera
+obj = Camera()
+
 
 app = Flask(__name__)
 
@@ -25,7 +26,7 @@ def gen(camera):
 @app.route('/video_feed')
 def video_feed():
     """Video streaming route. Put this in the src attribute of an img tag."""
-    return Response(gen(Camera()),
+    return Response(gen(obj),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
 

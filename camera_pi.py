@@ -64,21 +64,53 @@ import threading
 
 # this is for laptop camera
 import cv2
+import numpy as np
+cap = cv2.VideoCapture(0)
+cap.set(3,640)
+cap.set(4,480)
 
 
 class Camera(object):
     def __init__(self):
-        self.video = cv2.VideoCapture(0)
+        self.video = cap
 
     def __del__(self):
         self.video.release()
 
-    def get_frame(self):
-        ret, frame = self.video.read()
+    def ret_frame(self):
+        ret,frame = self.video.read()
+        return ret,frame
 
+    def get_frame(self):
+        ret, frame = self.ret_frame()
+        self.record()
         # DO WHAT YOU WANT WITH TENSORFLOW / KERAS AND OPENCV
 
         ret, jpeg = cv2.imencode('.jpg', frame)
 
         return jpeg.tobytes()
 # -----------------------------------------------------------------------------------------------------------------------
+    def record(self):
+        fourcc = cv2.VideoWriter_fourcc(*'MJPG')
+        size = (int(self.video.get(3)), int(self.video.get(4)))
+        out = cv2.VideoWriter('output.avi', fourcc, 20.0, size)
+
+        ret,frame = self.video.read()
+        hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+        out.write(frame)
+        # cv2.imshow('Original', frame)
+        cv2.imshow('frame', hsv)
+        # Wait for 'a' key to stop the program
+        if cv2.waitKey(1) & 0xFF == ord('a'):
+            # Close the window / Release webcam
+            self.video.release()
+
+            # After we release our webcam, we also release the output
+            out.release()
+
+            # De-allocate any associated memory usage
+            cv2.destroyAllWindows()
+#
+
+
+
