@@ -1,7 +1,8 @@
 # import curses
+#
 # import RPi.GPIO as GPIO
 # from time import sleep
-
+#
 # GPIO.setmode(GPIO.BOARD)
 # GPIO.setwarnings(False)
 #
@@ -54,6 +55,7 @@ if __name__ == '__main__':
     # GPIO.setup(11, GPIO.OUT, initial=GPIO.LOW)
     controller(char)
     # GPIO.cleanup()
+
     # screen = curses.initscr()
     # curses.noecho()
     # curses.cbreak()

@@ -1,23 +1,28 @@
 # connect camera->Raspberry Pi Configuration Tool ->Camera Interface ->enabled->reboot
 # install Flask on Rpi : sudo apt-get install python3-flask
 
-from flask import Flask, render_template, request,Response
+from flask import Flask, render_template, request, Response
 from camera_pi import Camera
 import os
+from camera_pi import flag
+
 from time import sleep
+
 obj = Camera()
 
 app = Flask(__name__)
 
 global direct
 direct = "stop"
+
+
 @app.route('/')
 def index():
     """" video streaming home page """
     templateData = {
-        'direct' : direct,
+        'direct': direct,
     }
-    return render_template("index.html",**templateData)
+    return render_template("index.html", **templateData)
 
 
 def gen(camera):
@@ -39,7 +44,26 @@ def video_feed():
 def move(direction):
     global direct
     direct = direction
-    os.system("python3 control.py "+str(direct))
+    os.system("python3 control.py " + str(direct))
+    templateData = {
+        'direct': direct,
+    }
+    return render_template('index.html', **templateData)
+
+
+@app.route("/record")
+def record():
+    global flag
+    flag =1
+    templateData = {
+        'direct': direct,
+    }
+    return render_template('index.html', **templateData)
+
+@app.route("/stop")
+def stop():
+    global flag
+    flag = 0
     templateData = {
         'direct': direct,
     }

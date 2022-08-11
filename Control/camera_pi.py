@@ -3,21 +3,24 @@
 #
 #  camera_pi.py
 #
-#
-#
+from datetime import datetime
 import time
 import io
 import threading
 # import picamera
-
 import cv2
+
+global flag
+flag = 0
 
 
 class Camera(object):
     thread = None  # background thread that reads frames from camera
+    thread2 = None
     frame = None  # current frame is stored here by background thread
     last_access = 0  # time of last client access to the camera
 
+    # obj = picamera.PiCamera()
     def initialize(self):
         if Camera.thread is None:
             # start background frame thread
@@ -35,8 +38,8 @@ class Camera(object):
 
     @classmethod
     def _thread(cls):
-        # with picamera.PiCamera() as camera:
-        with cv2.VideoCapture(0) as camera:
+        with picamera.PiCamera as camera:
+            # with cv2.VideoCapture(0) as camera:
             # camera setup
             camera.resolution = (320, 240)
             camera.hflip = True
@@ -46,6 +49,7 @@ class Camera(object):
             camera.start_preview()
             time.sleep(2)
 
+            # filename = "" + str(time.time()) + ".h264"
             stream = io.BytesIO()
             for foo in camera.capture_continuous(stream, 'jpeg',
                                                  use_video_port=True):
@@ -53,6 +57,16 @@ class Camera(object):
                 stream.seek(0)
                 cls.frame = stream.read()
                 # to record
+                try:
+                    while flag:
+                        now = datetime.now()
+                        filename = now.strftime("%m/%d/%Y, %H:%M:%S") + ".h264"
+                        camera.camera.start_recording(output=filename)
+                except:
+                    pass
+                else:
+                    if not flag:
+                        camera.stop_recording()
 
                 # reset stream for next frame
                 stream.seek(0)
@@ -63,6 +77,19 @@ class Camera(object):
                 if time.time() - cls.last_access > 10:
                     break
         cls.thread = None
+
+    # def record(self):
+    #     now = datetime.now()
+    #     filename = now.strftime("%m/%d/%Y, %H:%M:%S") + ".h264"
+    #     # print("recording")
+    #     return
+    #     # self.obj.start_recording(output = filename,frame=self.frame)
+    #
+    # def stop_record(self):
+    #     # self.obj.stop_recording()
+    #     Camera.thread2.join()
+    #     print("stop recording")
+    #     return
 # ----------------------------------------------------------------------------------------------------------------------
 #
 # # this is for laptop camera
@@ -72,7 +99,7 @@ class Camera(object):
 # cap.set(3,640)
 # cap.set(4,480)
 #
-
+#
 # class Camera(object):
 #     def __init__(self):
 #         self.video = cap
@@ -115,6 +142,3 @@ class Camera(object):
 #                 # De-allocate any associated memory usage
 #                 cv2.destroyAllWindows()
 #     #
-
-
-
