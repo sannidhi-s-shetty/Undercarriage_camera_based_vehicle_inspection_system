@@ -51,22 +51,19 @@ class Camera(object):
 
             # filename = "" + str(time.time()) + ".h264"
             stream = io.BytesIO()
-            for foo in camera.capture_continuous(stream, 'jpeg',
-                                                 use_video_port=True):
+            for foo in camera.capture_continuous(stream, 'jpeg', use_video_port=True):
                 # store frame
                 stream.seek(0)
                 cls.frame = stream.read()
-                # to record
-                try:
-                    while flag:
-                        now = datetime.now()
-                        filename = now.strftime("%m/%d/%Y, %H:%M:%S") + ".h264"
-                        camera.camera.start_recording(output=filename)
-                except:
-                    pass
-                else:
-                    if not flag:
-                        camera.stop_recording()
+                # to record 
+                while not flag:
+                    continue
+                now = datetime.now()
+                filename = now.strftime("%m/%d/%Y, %H:%M:%S") + ".h264"
+                camera.camera.start_recording(output=filename)
+                while flag:
+                    continue
+                camera.stop_recording()
 
                 # reset stream for next frame
                 stream.seek(0)
