@@ -33,38 +33,44 @@
     <br>
     <br>
     <div class="text-center">
-    <!--    <button class="btn btn-warning btn-lg mb-3">Up</button>-->
-    <a href="/up" class="btn btn-warning btn-lg mb-3">Up</a>
+      <!--    <button class="btn btn-warning btn-lg mb-3">Up</button>-->
+      <a href="/up" class="btn btn-warning btn-lg mb-3">Up</a>
 
-    <br>
-    <!--    <button class="btn btn-warning btn-lg">Left</button>-->
-    <!--    <button class="btn btn-warning btn-lg">Down</button>-->
-    <!--    <button class="btn btn-warning btn-lg">Right</button>-->
-    <a href="/left" class="btn btn-warning btn-lg">Left</a>
-    <a href="/down" class="btn btn-warning btn-lg">Down</a>
-    <a href="/right" class="btn btn-warning btn-lg">Right</a>
-    <!-- When we click on this link, we generate a “GET /direction”. Those parameters will be passed to the Web Server App (appCam.py).    -->
-    <br>
-    <br>
-  </div>
-    <div class="row text-center">
-      
-        <a href="/record" class="btn btn-dark text-warning btn-lg mx-auto mb-1">Start Recording</a>
-        <a href="/stop" class="btn btn-dark text-warning btn-lg mx-auto mb-1">Stop Recording</a>
-      
-      <hr>
+      <br>
+      <!--    <button class="btn btn-warning btn-lg">Left</button>-->
+      <!--    <button class="btn btn-warning btn-lg">Down</button>-->
+      <!--    <button class="btn btn-warning btn-lg">Right</button>-->
+      <a href="/left" class="btn btn-warning btn-lg">Left</a>
+      <a href="/down" class="btn btn-warning btn-lg">Down</a>
+      <a href="/right" class="btn btn-warning btn-lg">Right</a>
+      <!-- When we click on this link, we generate a “GET /direction”. Those parameters will be passed to the Web Server App (appCam.py).    -->
+      <br>
+      <br>
+    </div>
+
+    <div class="left">
+      <div id="startButton" class="button">
+        Start
+      </div>
+      <h2>Preview</h2>
+      <video id="preview" width="300" height="200" autoplay muted></video>
+    </div>
+    <div class="right">
+      <div id="stopButton" class="button">
+        Stop
+      </div>
+      <h2>Recording</h2>
+      <video id="recording" width="300" height="200" controls></video>
+      <a id="downloadButton" class="button">
+        Download
+      </a>
+    </div>
+    <div class="bottom">
+      <pre id="log"></pre>
     </div>
 
 
-    <!--    <script>-->
-    <!--        function record(){-->
-
-    <!--        }-->
-    <!--	    var btn = document.getElementById("myBtn");-->
-    <!--	    btn.addEventListener("click", record);-->
-    <!--    </script>-->
-  </div>
-  <script src="./index.js" type="text/babel"></script>
+    <script src="../static/index.js" type="text/babel"></script>
 </body>
 
 </html>
